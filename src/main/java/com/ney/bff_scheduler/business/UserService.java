@@ -1,6 +1,7 @@
 package com.ney.bff_scheduler.business;
 
 import com.ney.bff_scheduler.business.dto.in.AddressDtoRequest;
+import com.ney.bff_scheduler.business.dto.in.LoginDtoRequest;
 import com.ney.bff_scheduler.business.dto.in.PhoneDtoRequest;
 import com.ney.bff_scheduler.business.dto.in.UserDtoRequest;
 import com.ney.bff_scheduler.business.dto.out.AddressDtoResponse;
@@ -23,7 +24,7 @@ public class UserService {
        return userClient.saveUser(userDto);
     }
 
-    public String login (UserDtoRequest userDto){
+    public String login (LoginDtoRequest userDto){
         return userClient.login(userDto);
     }
 

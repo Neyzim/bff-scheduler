@@ -2,6 +2,7 @@ package com.ney.bff_scheduler.controller;
 
 import com.ney.bff_scheduler.business.UserService;
 import com.ney.bff_scheduler.business.dto.in.AddressDtoRequest;
+import com.ney.bff_scheduler.business.dto.in.LoginDtoRequest;
 import com.ney.bff_scheduler.business.dto.in.PhoneDtoRequest;
 import com.ney.bff_scheduler.business.dto.in.UserDtoRequest;
 
@@ -39,7 +40,7 @@ public class UserController {
     @ApiResponse(responseCode = "200", description = "User authenticated")
     @ApiResponse(responseCode = "401", description = "Invalid Credentials")
     @ApiResponse(responseCode = "500", description = "Service Error")
-    public String login(@RequestBody UserDtoRequest userDto){
+    public String login(@RequestBody LoginDtoRequest userDto){
        return userService.login(userDto);
     }
 

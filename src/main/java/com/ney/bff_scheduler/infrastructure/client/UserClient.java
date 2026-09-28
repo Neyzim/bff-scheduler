@@ -1,6 +1,7 @@
 package com.ney.bff_scheduler.infrastructure.client;
 
 import com.ney.bff_scheduler.business.dto.in.AddressDtoRequest;
+import com.ney.bff_scheduler.business.dto.in.LoginDtoRequest;
 import com.ney.bff_scheduler.business.dto.in.PhoneDtoRequest;
 import com.ney.bff_scheduler.business.dto.in.UserDtoRequest;
 import com.ney.bff_scheduler.business.dto.out.AddressDtoResponse;
@@ -20,7 +21,7 @@ public interface UserClient {
     UserDtoResponse saveUser(@RequestBody UserDtoRequest userDto);
 
     @PostMapping(value = "/login")
-    String login(@RequestBody UserDtoRequest userDto);
+    String login(@RequestBody LoginDtoRequest userDto);
 
 
     @DeleteMapping(value = "/delete/{email}")
