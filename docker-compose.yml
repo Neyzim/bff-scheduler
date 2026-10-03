@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+  task-manager:
+    build: ..\task-manager
+    container_name: task-manager
+    ports:
+      - "8081-8081"
+    environment:
+      - SPRING_DATA_MONGODB_URI= mongodb://localhost:27017/db_taskmanager
+    depends_on:
+      - mongo
+
+  bff-scheduler:
+    build: .
+    container_name: bff-scheduler
+    ports:
+      - "8085-8085"
+    environment:
+      - user_url=user:8080/user
+      - taskManager_url=task-manager/8081/task
+      - notification_url=notification/8084/email
+
+  user:
+    build: ../user
+    container_name: user
+    ports:
+      - "8080-8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/db_user
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+    depends_on:
+      - postgres
+
+  notification:
+    build: ../notification
+    container_name: notification
+    ports:
+      - "8084-8084"
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: no
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: db_user
+    ports:
+      - "5433:5432"
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: no
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: db_taskmanager
+
+networks:
+  default:
+    driver: bridge
