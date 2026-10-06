@@ -7,7 +7,9 @@ import com.ney.bff_scheduler.business.dto.in.UserDtoRequest;
 import com.ney.bff_scheduler.business.dto.out.AddressDtoResponse;
 import com.ney.bff_scheduler.business.dto.out.PhoneDtoResponse;
 import com.ney.bff_scheduler.business.dto.out.UserDtoResponse;
+import com.ney.bff_scheduler.business.dto.out.ViaCepDtoResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "bffUser", url = "${user.url}")
@@ -49,5 +51,8 @@ public interface UserClient {
     @PostMapping("/phone")
     PhoneDtoResponse saveNewPhone(@RequestBody PhoneDtoRequest phoneDto,
                                  @RequestHeader("Authorization") String token);
+
+    @GetMapping("/address/{cep}")
+    ViaCepDtoResponse getCepData(@PathVariable("cep") String cep);
 }
 

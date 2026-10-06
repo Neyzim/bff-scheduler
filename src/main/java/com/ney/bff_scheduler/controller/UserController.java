@@ -9,6 +9,7 @@ import com.ney.bff_scheduler.business.dto.in.UserDtoRequest;
 import com.ney.bff_scheduler.business.dto.out.AddressDtoResponse;
 import com.ney.bff_scheduler.business.dto.out.PhoneDtoResponse;
 import com.ney.bff_scheduler.business.dto.out.UserDtoResponse;
+import com.ney.bff_scheduler.business.dto.out.ViaCepDtoResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -107,12 +108,22 @@ public class UserController {
         return ResponseEntity.ok(userService.saveNewAddress(token, addressDto));
     }
 
-    @PostMapping("/phone") @Operation(summary = "update user Phone", description = "Communicates with User Api to update a User Phone")
+    @PostMapping("/phone")
+    @Operation(summary = "update user Phone", description = "Communicates with User Api to update a User Phone")
     @ApiResponse(responseCode = "200", description = "Phone Saved")
     @ApiResponse(responseCode = "400", description = "User Not Found")
     @ApiResponse(responseCode = "500", description = "Service Error")
     public ResponseEntity<PhoneDtoResponse> saveNewPhone(@RequestBody PhoneDtoRequest phoneDto,
                                                         @RequestHeader("Authorization") String token){
         return ResponseEntity.ok(userService.saveNewPhone(token, phoneDto));
+    }
+
+    @GetMapping("/address/{cep}")
+    @Operation(summary = "Search CEP information", description = "Communicates with Via Cep Api Search CEP information")
+    @ApiResponse(responseCode = "200", description = "Information fetch success")
+    @ApiResponse(responseCode = "400", description = "CEP Invalid")
+    @ApiResponse(responseCode = "500", description = "Service Error")
+    public ResponseEntity<ViaCepDtoResponse> getCepData(@PathVariable("cep") String cep){
+        return ResponseEntity.ok(userService.getCepData(cep));
     }
 }

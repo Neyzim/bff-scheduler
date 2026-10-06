@@ -7,6 +7,7 @@ import com.ney.bff_scheduler.business.dto.in.UserDtoRequest;
 import com.ney.bff_scheduler.business.dto.out.AddressDtoResponse;
 import com.ney.bff_scheduler.business.dto.out.PhoneDtoResponse;
 import com.ney.bff_scheduler.business.dto.out.UserDtoResponse;
+import com.ney.bff_scheduler.business.dto.out.ViaCepDtoResponse;
 import com.ney.bff_scheduler.infrastructure.client.UserClient;
 
 
@@ -54,5 +55,9 @@ public class UserService {
 
     public PhoneDtoResponse saveNewPhone(String token, PhoneDtoRequest phoneDto){
         return  userClient.saveNewPhone(phoneDto, token);
+    }
+
+    public ViaCepDtoResponse getCepData(String cep){
+        return userClient.getCepData(cep);
     }
 }
