@@ -59,6 +59,13 @@ services:
     environment:
       MONGO_INITDB_DATABASE: db_taskmanager
 
+  rabbitmq:
+    image: rabbitmq:4.3.6-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
 networks:
   default:
     driver: bridge

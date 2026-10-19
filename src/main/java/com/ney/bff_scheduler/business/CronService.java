@@ -3,6 +3,7 @@ package com.ney.bff_scheduler.business;
 import com.ney.bff_scheduler.business.dto.in.LoginDtoRequest;
 import com.ney.bff_scheduler.business.dto.out.TaskDtoResponse;
 import com.ney.bff_scheduler.business.enums.NotificationStatusEnum;
+import com.ney.bff_scheduler.business.message.producer.EmailProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ import java.util.List;
 public class CronService {
 
     private final TaskService taskService;
-    private final EmailService emailService;
+    private final EmailProducer emailProducer;
     private final UserService userService;
 
     @Value("${user.email}")
@@ -37,9 +38,9 @@ public class CronService {
         log.info("Tarefas Encontradas: " + taskList.toString());
         taskList.forEach(
                 task -> {
-                    emailService.sendEmail(task);
+                    emailProducer.sendEmail(task);
                     log.info("Email Enviado!" + task.getCreatedBy());
-                    taskService.changeTaskStatus(NotificationStatusEnum.NOTIFIED, task.getId(), token);
+                    taskService.changeTaskStatus(NotificationStatusEnum.WAITING, task.getId(), token);
                 }
         );
     }
